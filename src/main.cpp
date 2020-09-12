@@ -8,12 +8,12 @@
 
 Bounce * button = new Bounce();
 
-int ledState = LOW;
+int powerState = LOW;
 
 void powerOff() {
-  ledState = LOW;
-  digitalWrite(LED_PIN, ledState);
-  digitalWrite(SWITCH_PIN, ledState);
+  powerState = LOW;
+  digitalWrite(LED_PIN, powerState);
+  digitalWrite(SWITCH_PIN, powerState);
 }
 
 Ticker timer(powerOff, 1000 * 60 * 30);
@@ -24,28 +24,28 @@ void setup() {
 
   pinMode(LED_PIN, OUTPUT);
   pinMode(SWITCH_PIN, OUTPUT);
-  digitalWrite(LED_PIN, ledState);
-  digitalWrite(SWITCH_PIN, ledState);
+  digitalWrite(LED_PIN, powerState);
+  digitalWrite(SWITCH_PIN, powerState);
 }
 
 void loop() {
-  bool needToToggleLed = false;
+  bool needToToggle = false;
   button->update();
   timer.update();
 
   if (button->fell()) {
-    needToToggleLed = true;
+    needToToggle = true;
   }
   
-  if ( needToToggleLed ) {
-    if (ledState == LOW) {
+  if (needToToggle) {
+    if (powerState == LOW) {
       timer.start();
     } else {
       timer.stop();
     }
 
-    ledState = !ledState;
-    digitalWrite(LED_PIN, ledState);
-    digitalWrite(SWITCH_PIN, ledState);
+    powerState = !powerState;
+    digitalWrite(LED_PIN, powerState);
+    digitalWrite(SWITCH_PIN, powerState);
   }
 }
