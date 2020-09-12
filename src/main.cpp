@@ -16,7 +16,7 @@ void powerOff() {
   digitalWrite(SWITCH_PIN, powerState);
 }
 
-Ticker timer(powerOff, 1000 * 60 * 30);
+Ticker timer(powerOff, 1000 * 60 * 30); // default of 30 minutes
 
 void setup() {
   button->attach(BUTTON_PIN , INPUT_PULLUP);
